@@ -23,7 +23,7 @@ public class WriterView {
     }
 
     public void deleteById(Long id) {
-        gsonWriterRepository.deleteById();
+        gsonWriterRepository.deleteById(id);
     }
 
     public void addWriter(Writer writer) {
