@@ -9,8 +9,8 @@ import java.util.Optional;
 public class WriterController {
     private final WriterView writerView;
 
-    public WriterController(WriterView writerService) {
-        this.writerView = writerService;
+    public WriterController(WriterView writerView) {
+        this.writerView = writerView;
     }
 
     public List<Writer> showAll() {

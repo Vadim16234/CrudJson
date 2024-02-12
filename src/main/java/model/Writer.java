@@ -2,20 +2,18 @@ package model;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
-//@Builder(toBuilder = true)
-public class Writer {
+public class Writer implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
-    private List<Post> posts;
+    private transient List<Post> posts;
     private Status status;
 
     public void addPost(Post post){
@@ -23,5 +21,15 @@ public class Writer {
             this.posts = new ArrayList<>();
         }
         this.posts.add(post);
+    }
+
+    public Writer() {}
+
+    public Writer(Long id, String firstName, String lastName, List<Post> posts, Status status) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.posts = posts;
+        this.status = status;
     }
 }

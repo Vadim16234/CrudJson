@@ -37,7 +37,8 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public void add(Writer writer) {
-        writer.addPost(post);
+//        writer.addPost(post);
+
         writers.add(writer);
     }
 
