@@ -1,16 +1,15 @@
 package repository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GenericRepository<T, ID> {
     List<T> findAll();
 
-    Optional<T> findById(Long ID);
+    T findById(ID id);
 
-    void deleteById(Long ID);
+    void deleteById(ID id);
 
-    void add(T t);
+    T add(T t);
 
-    void update(Long ID, String s1, String s2);
+    T update(T t);
 }

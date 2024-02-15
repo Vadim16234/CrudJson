@@ -14,8 +14,8 @@ public class Main {
 
         List<Writer> writerCollection = new ArrayList<>();
 
-        Writer writer = new Writer(1L, "Vadim", "Popov", null, Status.ACTIVE);
-        Writer writer2 = new Writer(2L, "Dima", "Ivanov", null, Status.ACTIVE);
+        Writer writer = new Writer(1L, "Vadim", "Popov", Status.ACTIVE);
+        Writer writer2 = new Writer(2L, "Dima", "Ivanov", Status.ACTIVE);
 
         writerCollection.add(writer);
         writerCollection.add(writer2);
@@ -23,11 +23,9 @@ public class Main {
         String jsonCollection = new Gson().toJson(writerCollection);
 
 
-        try (FileOutputStream fos = new FileOutputStream(
-                "writers.json"))
-        {
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(jsonCollection);
+        try (FileWriter write = new FileWriter(
+                "writers.json")) {
+
         } catch (IOException e) {
             System.out.println("Ошибка при сохранении " + e);
         }

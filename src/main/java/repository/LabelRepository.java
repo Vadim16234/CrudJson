@@ -1,4 +1,6 @@
 package repository;
 
-public interface LabelRepository {
+import model.Label;
+
+public interface LabelRepository extends GenericRepository<Label, Long> {
 }

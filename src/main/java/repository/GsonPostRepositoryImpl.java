@@ -9,36 +9,34 @@ import java.util.List;
 import java.util.Optional;
 
 public class GsonPostRepositoryImpl implements PostRepository {
-    private final Label label;
-
-    List<Post> posts = new ArrayList<>();
 
     public GsonPostRepositoryImpl(Label label) {
-        this.label = label;
+//        this.label = label;
     }
 
     @Override
     public List<Post> findAll() {
-        return posts;
+        return null;
     }
 
     @Override
     public Optional<Post> findById(Long ID) {
-        return posts.stream().filter(e -> e.getId().equals(ID)).findAny();
+//        return posts.stream().filter(e -> e.getId().equals(ID)).findAny();
+        return null;
     }
 
     @Override
     public void deleteById(Long ID) {
-        for (Post el : posts) {
-            if (el.getId().equals(ID)) {
-                el.setStatus(Status.DELETED);
-            }
-        }
+//        for (Post el : posts) {
+//            if (el.getId().equals(ID)) {
+//                el.setStatus(Status.DELETED);
+//            }
+//        }
     }
 
     @Override
     public void add(Post post) {
-        posts.add(post);
+//        posts.add(post);
     }
 
     @Override
@@ -46,6 +44,6 @@ public class GsonPostRepositoryImpl implements PostRepository {
         Post post = findById(ID).get();
         post.setTitle(s1);
         post.setContent(s2);
-        posts.add(post);
+//        posts.add(post);
     }
 }
