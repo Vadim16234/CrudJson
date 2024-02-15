@@ -44,6 +44,21 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         }
     }
 
+    public Long generatedId(List<Writer> writerList) {
+        Long countMax = 1L;
+
+        if (writerList == null) {
+            return countMax;
+        } else {
+            for (Writer writer : writerList) {
+                if (writer.getId() >= countMax) {
+                    countMax = writer.getId() + 1L;
+                }
+            }
+            return countMax;
+        }
+    }
+
 
     @Override
     public List<Writer> findAll() {
@@ -57,7 +72,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     public void deleteById(Long id) {
         List<Writer> writers = readFrowWritersFile();
-        for (Writer el : writers) {
+        for (Writer el : writers) { // можно ли не создавать лист, а напрямую прокинуть readFromWriterFile()????
             if (el.getId().equals(id)) {
                 el.setStatus(Status.DELETED);
             }
@@ -67,20 +82,20 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public Writer add(Writer writer) {
-        List<Writer> writers = readFrowWritersFile();
+        List<Writer> listWriters = readFrowWritersFile();
 
-//        writer.addPost(post);
+        Long id = generatedId(listWriters);
 
-//        writers.add(writer);
-        return null;
+        writer.setId(id);
+        listWriters.add(writer);
+        writeInFile(listWriters);
+        return writer;
     }
 
     @Override
     public Writer update(Writer writer) {
-//        Writer writer = findById(ID).get();
-//        writer.setFirstName(s1);
-//        writer.setLastName(s2);
-//        writers.add(writer);
+        List<Writer> listWriters = readFrowWritersFile();
+
         return null;
     }
 }

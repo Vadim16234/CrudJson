@@ -14,6 +14,10 @@ public class GsonPostRepositoryImpl implements PostRepository {
 //        this.label = label;
     }
 
+    public GsonPostRepositoryImpl() {
+
+    }
+
     @Override
     public List<Post> findAll() {
         return null;
