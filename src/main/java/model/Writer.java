@@ -23,7 +23,7 @@ public class Writer implements Serializable {
         this.posts.add(post);
     }
 
-    public Writer(long l, String vadim, String popov, Status active) {}
+    public Writer() {}
 
     public Writer(Long id, String firstName, String lastName, List<Post> posts, Status status) {
         this.id = id;

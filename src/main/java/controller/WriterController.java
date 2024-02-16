@@ -1,35 +1,48 @@
 package controller;
 
+import model.Post;
+import model.Status;
 import model.Writer;
-import view.WriterView;
+import repository.WriterRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class WriterController {
-    private final WriterView writerView;
+    private final WriterRepository gsonWriterRepository;
 
-    public WriterController(WriterView writerView) {
-        this.writerView = writerView;
+    public WriterController(WriterRepository gsonWriterRepository) {
+        this.gsonWriterRepository = gsonWriterRepository;
     }
 
     public List<Writer> showAll() {
-        return writerView.findAll();
+        return gsonWriterRepository.findAll();
     }
 
-    public Optional<Writer> showById(Long id) {
-        return writerView.findById(id);
+    public Writer showById(Long id) {
+        return gsonWriterRepository.findById(id);
     }
 
     public void deleteById(Long id) {
-        writerView.deleteById(id);
+        gsonWriterRepository.deleteById(id);
     }
 
-    public void addWriter(Writer writer) {
-        writerView.addWriter(writer);
+    public Writer addWriter(String firstName, String lastname, List<Post> posts, Status status) {
+        Writer writer = new Writer();
+        writer.setFirstName(firstName);
+        writer.setLastName(lastname);
+        writer.setPosts(posts);
+        writer.setStatus(status);
+
+        return gsonWriterRepository.add(writer);
     }
 
-    public void update(Long id, String s1, String s2) {
-        writerView.update(id, s1, s2);
+    public Writer update(Long id, String firstName, String lastname, List<Post> posts, Status status) {
+        Writer writer = showById(id);
+        writer.setFirstName(firstName);
+        writer.setLastName(lastname);
+        writer.setPosts(posts);
+        writer.setStatus(status);
+        return gsonWriterRepository.update(writer);
+
     }
 }

@@ -16,12 +16,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class GsonWriterRepositoryImpl implements WriterRepository {
+    public GsonWriterRepositoryImpl() {
+    }
+
     private final String FILE_NAME = "writers.json";
     private final PostRepository postRepository = new GsonPostRepositoryImpl();
 
     public List<Writer> readFrowWritersFile() {
         try (FileReader fileReader = new FileReader(FILE_NAME)) {
-            Type typeToken = new TypeToken<List<Writer>>() { }.getType();
+            Type typeToken = new TypeToken<List<Writer>>() {}.getType();
             List<Writer> listWriters = new Gson().fromJson(fileReader, typeToken);
 
             if (listWriters == null) {
@@ -45,6 +48,12 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     }
 
     public Long generatedId(List<Writer> writerList) {
+//        return writerList
+//                .stream()
+//                .mapToLong(Writer::getId)
+//                .max()
+//                .orElse(1);
+
         Long countMax = 1L;
 
         if (writerList == null) {
@@ -59,7 +68,6 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         }
     }
 
-
     @Override
     public List<Writer> findAll() {
         return readFrowWritersFile();
@@ -67,12 +75,17 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public Writer findById(Long id) {
-        return readFrowWritersFile().stream().filter(writer -> writer.getId().equals(id)).findAny().orElse(null);
+        return readFrowWritersFile()
+                .stream()
+                .filter(writer -> writer.getId().equals(id))
+                .findAny()
+                .orElse(null);
     }
 
+    @Override
     public void deleteById(Long id) {
         List<Writer> writers = readFrowWritersFile();
-        for (Writer el : writers) { // можно ли не создавать лист, а напрямую прокинуть readFromWriterFile()????
+        for (Writer el : writers) {
             if (el.getId().equals(id)) {
                 el.setStatus(Status.DELETED);
             }

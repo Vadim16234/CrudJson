@@ -2,11 +2,8 @@ package repository;
 
 import model.Label;
 import model.Post;
-import model.Status;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class GsonPostRepositoryImpl implements PostRepository {
 
@@ -24,7 +21,7 @@ public class GsonPostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Optional<Post> findById(Long ID) {
+    public Post findById(Long ID) {
 //        return posts.stream().filter(e -> e.getId().equals(ID)).findAny();
         return null;
     }
@@ -39,15 +36,21 @@ public class GsonPostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public void add(Post post) {
+    public Post add(Post post) {
 //        posts.add(post);
+        return post;
     }
 
     @Override
+    public Post update(Post post) {
+        return null;
+    }
+
+//    @Override
     public void update(Long ID, String s1, String s2) {
-        Post post = findById(ID).get();
-        post.setTitle(s1);
-        post.setContent(s2);
+//        Post post = findById(ID).get();
+//        post.setTitle(s1);
+//        post.setContent(s2);
 //        posts.add(post);
     }
 }
