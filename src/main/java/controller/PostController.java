@@ -1,36 +1,43 @@
 package controller;
 
+import model.Label;
 import model.Post;
+import model.Status;
+import repository.PostRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PostController {
 
-//    private final PostView postView;
-//
-//    public PostController(PostView postView) {
-//        this.postView = postView;
-//    }
-//
-//
-//    public List<Post> getAll() {
-//        return postView.showAll();
-//    }
-//
-//    public Optional<Post> getById(Long id) {
-//        return postView.showById(id);
-//    }
-//
-//    public void deletePostById(Long id) {
-//        postView.deleteById(id);
-//    }
-//
-//    public void addPost(Post post) {
-//        postView.addPost(post);
-//    }
-//
-//    public void updatePostById(Long id, String s1, String s2) {
-//        postView.updatePost(id, s1, s2);
-//    }
+    public final PostRepository postRepository;
+
+    public PostController(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
+    public List<Post> showAll() {
+        return postRepository.findAll();
+    }
+
+    public Post showById(Long id) {
+        return postRepository.findById(id);
+    }
+
+    public void deleteById(Long id) {
+        postRepository.deleteById(id);
+    }
+
+    public Post addPost(String title, String context, List<Label> labels, Status status) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setContent(context);
+        post.setLables(labels);
+        post.setStatus(status);
+
+        return postRepository.add(post);
+    }
+
+    public Post update(Post post) {
+        return postRepository.update(post);
+    }
 }

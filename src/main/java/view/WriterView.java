@@ -6,7 +6,6 @@ import model.Status;
 import model.Writer;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,19 +48,6 @@ public class WriterView {
         }
     }
 
-    public long inputLong(Scanner scanner) {
-        long result;
-        while (true) {
-            try {
-                result = scanner.nextLong();
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Вы ввели не число, попробуйте заново");
-            }
-        }
-        return result;
-    }
-
     public void getWriterList() {
         List<Writer> writers = writerController.showAll();
 
@@ -72,13 +58,13 @@ public class WriterView {
 
     public void getWriterById() {
         System.out.print("Введите искомый id: ");
-        Long writerId = inputLong(scanner);
+        Long writerId = scanner.nextLong();
         System.out.println(writerController.showById(writerId));
     }
 
     public void deleteWriterById() {
-        System.out.print("Введи id для удалния: ");
-        Long writerId = inputLong(scanner);
+        System.out.print("Введи id для удаления: ");
+        Long writerId = scanner.nextLong();
         writerController.deleteById(writerId);
     }
 

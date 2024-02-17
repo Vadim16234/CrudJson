@@ -1,10 +1,9 @@
 import controller.LabelController;
+import controller.PostController;
 import controller.WriterController;
-import repository.GsonLabelRepositoryImpl;
-import repository.GsonWriterRepositoryImpl;
-import repository.LabelRepository;
-import repository.WriterRepository;
+import repository.*;
 import view.LabelView;
+import view.PostView;
 import view.WriterView;
 
 import java.util.InputMismatchException;
@@ -30,6 +29,7 @@ public class MenuCrud {
                         startWriters();
                         break;
                     case 2:
+                        startPosts();
                         break;
                     case 3:
                         startLabels();
@@ -48,23 +48,6 @@ public class MenuCrud {
         }
     }
 
-//    public int inputIntScan(Scanner scanner) {
-//        boolean flag = true;
-//        int result = 0;
-//        while (flag) {
-//            try {
-//                result = scanner.nextInt();
-//                break;
-//            } catch (Exception e) {
-//                System.out.println("Вы ввели не число, попробуйте заново");
-//                flag = false;
-//
-//            }
-//
-//        }
-//        return result;
-//    }
-
     public void startWriters() {
         WriterRepository writerRepository = new GsonWriterRepositoryImpl();
         WriterController writerController = new WriterController(writerRepository);
@@ -77,5 +60,12 @@ public class MenuCrud {
         LabelController labelController = new LabelController(labelRepository);
         LabelView labelView = new LabelView(labelController);
         labelView.startMenuLabel();
+    }
+
+    public void startPosts() {
+        PostRepository postRepository = new GsonPostRepositoryImpl();
+        PostController postController = new PostController(postRepository);
+        PostView postView = new PostView(postController);
+        postView.startMenuPost();
     }
 }

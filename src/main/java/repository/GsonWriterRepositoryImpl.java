@@ -11,14 +11,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class GsonWriterRepositoryImpl implements WriterRepository {
-    public GsonWriterRepositoryImpl() {
-    }
+    public GsonWriterRepositoryImpl() {}
 
     private final String FILE_NAME = "writers.json";
-    private final Gson gson = new Gson();
     private final PostRepository postRepository = new GsonPostRepositoryImpl();
 
     public List<Writer> readFrowWritersFile() {

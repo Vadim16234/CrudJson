@@ -37,12 +37,6 @@ public class WriterController {
     }
 
     public Writer update(Writer writer) {
-//        Writer writer = showById(id);
-//        writer.setId(id);
-//        writer.setFirstName(firstName);
-//        writer.setLastName(lastname);
-//        writer.setPosts(posts);
-//        writer.setStatus(status);
         return writerRepository.update(writer);
 
     }
