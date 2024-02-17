@@ -38,7 +38,7 @@ public class WriterView {
                 addWriter();
                 break;
             case 4:
-
+                updateWriter();
                 break;
             case 5:
                 deleteWriterById();
@@ -71,13 +71,13 @@ public class WriterView {
     }
 
     public void getWriterById() {
-        System.out.print("Введи искомый id: ");
+        System.out.print("Введите искомый id: ");
         Long writerId = inputLong(scanner);
         System.out.println(writerController.showById(writerId));
     }
 
     public void deleteWriterById() {
-        System.out.print("Введи id, который желаете удалить: ");
+        System.out.print("Введи id для удалния: ");
         Long writerId = inputLong(scanner);
         writerController.deleteById(writerId);
     }
@@ -93,6 +93,23 @@ public class WriterView {
 
         Status status = Status.ACTIVE;
 
-        Writer writer = writerController.addWriter(firstName, lastName, posts, status);
+        writerController.addWriter(firstName, lastName, posts, status);
+    }
+
+    public void updateWriter() {
+        System.out.print("Введите id, который хотите изменить: ");
+        Long id = scanner.nextLong();
+
+        System.out.print("Введите firstName для изменения: ");
+        String firstName = scanner.next();
+
+        System.out.print("Введите lastName для изменения: ");
+        String lastName = scanner.next();
+
+        List<Post> posts = new ArrayList<>();
+
+        Status status = Status.ACTIVE;
+
+        writerController.update(new Writer(id, firstName, lastName, posts, status));
     }
 }

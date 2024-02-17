@@ -6,9 +6,7 @@ import model.Post;
 import model.Status;
 import model.Writer;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +18,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     }
 
     private final String FILE_NAME = "writers.json";
+    private final Gson gson = new Gson();
     private final PostRepository postRepository = new GsonPostRepositoryImpl();
 
     public List<Writer> readFrowWritersFile() {
@@ -48,12 +47,6 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     }
 
     public Long generatedId(List<Writer> writerList) {
-//        return writerList
-//                .stream()
-//                .mapToLong(Writer::getId)
-//                .max()
-//                .orElse(1);
-
         Long countMax = 1L;
 
         if (writerList == null) {
@@ -109,6 +102,14 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     public Writer update(Writer writer) {
         List<Writer> listWriters = readFrowWritersFile();
 
-        return null;
+        for (Writer w : listWriters) {
+            if (w.getId().equals(writer.getId())) {
+                w.setFirstName(writer.getFirstName());
+                w.setLastName(writer.getLastName());
+            }
+        }
+        writeInFile(listWriters);
+
+        return writer;
     }
 }

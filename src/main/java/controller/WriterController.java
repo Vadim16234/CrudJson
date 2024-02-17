@@ -8,22 +8,22 @@ import repository.WriterRepository;
 import java.util.List;
 
 public class WriterController {
-    private final WriterRepository gsonWriterRepository;
+    private final WriterRepository writerRepository;
 
     public WriterController(WriterRepository gsonWriterRepository) {
-        this.gsonWriterRepository = gsonWriterRepository;
+        this.writerRepository = gsonWriterRepository;
     }
 
     public List<Writer> showAll() {
-        return gsonWriterRepository.findAll();
+        return writerRepository.findAll();
     }
 
     public Writer showById(Long id) {
-        return gsonWriterRepository.findById(id);
+        return writerRepository.findById(id);
     }
 
     public void deleteById(Long id) {
-        gsonWriterRepository.deleteById(id);
+        writerRepository.deleteById(id);
     }
 
     public Writer addWriter(String firstName, String lastname, List<Post> posts, Status status) {
@@ -33,16 +33,17 @@ public class WriterController {
         writer.setPosts(posts);
         writer.setStatus(status);
 
-        return gsonWriterRepository.add(writer);
+        return writerRepository.add(writer);
     }
 
-    public Writer update(Long id, String firstName, String lastname, List<Post> posts, Status status) {
-        Writer writer = showById(id);
-        writer.setFirstName(firstName);
-        writer.setLastName(lastname);
-        writer.setPosts(posts);
-        writer.setStatus(status);
-        return gsonWriterRepository.update(writer);
+    public Writer update(Writer writer) {
+//        Writer writer = showById(id);
+//        writer.setId(id);
+//        writer.setFirstName(firstName);
+//        writer.setLastName(lastname);
+//        writer.setPosts(posts);
+//        writer.setStatus(status);
+        return writerRepository.update(writer);
 
     }
 }
