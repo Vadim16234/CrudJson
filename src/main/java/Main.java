@@ -1,6 +1,8 @@
+import view.MainView;
+
 public class Main {
     public static void main(String[] args) {
-        MenuCrud crudLogic = new MenuCrud();
+        MainView crudLogic = new MainView();
 
         crudLogic.start();
     }

@@ -1,10 +1,10 @@
-package repository;
+package repository.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Post;
 import model.Status;
-import model.Writer;
+import repository.PostRepository;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,13 +15,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class GsonPostRepositoryImpl implements PostRepository {
+    private final String FILE_NAME = "src/main/resources/posts.json";
 
-    private final String FILE_NAME = "posts.json";
-
-    public GsonPostRepositoryImpl() {
-    }
-
-    public List<Post> readFromPostFile() {
+    private List<Post> readFromPostFile() {
         try (FileReader fileReader = new FileReader(FILE_NAME)){
             Type typeToken = new TypeToken<List<Post>>() {}.getType();
             List<Post> postList = new Gson().fromJson(fileReader, typeToken);
@@ -36,7 +32,7 @@ public class GsonPostRepositoryImpl implements PostRepository {
         }
     }
 
-    public void writeInFile(List<Post> postList) {
+    private void writeInFile(List<Post> postList) {
         try (FileWriter fileWriter = new FileWriter(FILE_NAME)) {
             String jsonCollection = new Gson().toJson(postList);
             fileWriter.write(jsonCollection);
@@ -45,7 +41,7 @@ public class GsonPostRepositoryImpl implements PostRepository {
         }
     }
 
-    public Long generatedId(List<Post> postList) {
+    private Long generatedId(List<Post> postList) {
         Long postIdMax = 1L;
 
         if (postList == null) {

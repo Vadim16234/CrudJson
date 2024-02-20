@@ -1,7 +1,12 @@
+package view;
+
 import controller.LabelController;
 import controller.PostController;
 import controller.WriterController;
 import repository.*;
+import repository.gson.GsonLabelRepositoryImpl;
+import repository.gson.GsonPostRepositoryImpl;
+import repository.gson.GsonWriterRepositoryImpl;
 import view.LabelView;
 import view.PostView;
 import view.WriterView;
@@ -9,11 +14,14 @@ import view.WriterView;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class MenuCrud {
+public class MainView {
     private final Scanner scanner = new Scanner(System.in);
 
-    public MenuCrud() {
-    }
+    public MainView() {}
+
+    private final LabelView labelView = new LabelView();
+    private final PostView postView = new PostView();
+    private final WriterView writerView = new WriterView();
 
     public void start() {
         System.out.println("Выберите сущность для дальнейшей работы: ");
@@ -49,23 +57,14 @@ public class MenuCrud {
     }
 
     public void startWriters() {
-        WriterRepository writerRepository = new GsonWriterRepositoryImpl();
-        WriterController writerController = new WriterController(writerRepository);
-        WriterView writerView = new WriterView(writerController);
         writerView.startMenuWriter();
     }
 
     public void startLabels() {
-        LabelRepository labelRepository = new GsonLabelRepositoryImpl();
-        LabelController labelController = new LabelController(labelRepository);
-        LabelView labelView = new LabelView(labelController);
         labelView.startMenuLabel();
     }
 
     public void startPosts() {
-        PostRepository postRepository = new GsonPostRepositoryImpl();
-        PostController postController = new PostController(postRepository);
-        PostView postView = new PostView(postController);
         postView.startMenuPost();
     }
 }

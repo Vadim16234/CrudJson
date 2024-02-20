@@ -13,6 +13,11 @@ public class WriterView {
     private final Scanner scanner;
     private final WriterController writerController;
 
+    public WriterView() {
+        this.writerController = new WriterController();
+        this.scanner = new Scanner(System.in);
+    }
+
     public WriterView(WriterController writerController) {
         this.writerController = writerController;
         this.scanner = new Scanner(System.in);

@@ -11,11 +11,15 @@ public class LabelView {
     private final Scanner scanner;
     private final LabelController labelController;
 
+    public LabelView() {
+        this.labelController = new LabelController();
+        this.scanner = new Scanner(System.in);
+    }
+
     public LabelView(LabelController labelController) {
         this.labelController = labelController;
         this.scanner = new Scanner(System.in);
     }
-
 
     public void startMenuLabel() {
         System.out.println("Доступные действия: ");

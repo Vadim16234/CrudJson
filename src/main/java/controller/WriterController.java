@@ -4,11 +4,16 @@ import model.Post;
 import model.Status;
 import model.Writer;
 import repository.WriterRepository;
+import repository.gson.GsonWriterRepositoryImpl;
 
 import java.util.List;
 
 public class WriterController {
     private final WriterRepository writerRepository;
+
+    public WriterController() {
+        this.writerRepository = new GsonWriterRepositoryImpl();
+    }
 
     public WriterController(WriterRepository gsonWriterRepository) {
         this.writerRepository = gsonWriterRepository;

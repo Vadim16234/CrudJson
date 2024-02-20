@@ -3,12 +3,16 @@ package controller;
 import model.Label;
 import model.Status;
 import repository.LabelRepository;
+import repository.gson.GsonLabelRepositoryImpl;
 
 import java.util.List;
 
 public class LabelController {
     private final LabelRepository labelRepository;
 
+    public LabelController() {
+        this.labelRepository = new GsonLabelRepositoryImpl();
+    }
 
     public LabelController(LabelRepository labelRepository) {
         this.labelRepository = labelRepository;

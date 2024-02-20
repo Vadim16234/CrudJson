@@ -1,10 +1,11 @@
-package repository;
+package repository.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import model.Post;
 import model.Status;
 import model.Writer;
+import repository.PostRepository;
+import repository.WriterRepository;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -13,12 +14,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class GsonWriterRepositoryImpl implements WriterRepository {
-    public GsonWriterRepositoryImpl() {}
+    private final String FILE_NAME = "src/main/resources/writers.json";
 
-    private final String FILE_NAME = "writers.json";
-    private final PostRepository postRepository = new GsonPostRepositoryImpl();
-
-    public List<Writer> readFrowWritersFile() {
+    private List<Writer> readFromWritersFile() {
         try (FileReader fileReader = new FileReader(FILE_NAME)) {
             Type typeToken = new TypeToken<List<Writer>>() {}.getType();
             List<Writer> listWriters = new Gson().fromJson(fileReader, typeToken);
@@ -34,7 +32,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         }
     }
 
-    public void writeInFile(List<Writer> listWriters) {
+    private void writeInFile(List<Writer> listWriters) {
         try (FileWriter fileWriter = new FileWriter(FILE_NAME)) {
             String jsonCollection = new Gson().toJson(listWriters);
             fileWriter.write(jsonCollection);
@@ -43,7 +41,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         }
     }
 
-    public Long generatedId(List<Writer> writerList) {
+    private Long generatedId(List<Writer> writerList) {
         Long countMax = 1L;
 
         if (writerList == null) {
@@ -60,12 +58,12 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public List<Writer> findAll() {
-        return readFrowWritersFile();
+        return readFromWritersFile();
     }
 
     @Override
     public Writer findById(Long id) {
-        return readFrowWritersFile()
+        return readFromWritersFile()
                 .stream()
                 .filter(writer -> writer.getId().equals(id))
                 .findAny()
@@ -74,7 +72,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public void deleteById(Long id) {
-        List<Writer> writers = readFrowWritersFile();
+        List<Writer> writers = readFromWritersFile();
         for (Writer el : writers) {
             if (el.getId().equals(id)) {
                 el.setStatus(Status.DELETED);
@@ -85,7 +83,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public Writer add(Writer writer) {
-        List<Writer> listWriters = readFrowWritersFile();
+        List<Writer> listWriters = readFromWritersFile();
 
         Long id = generatedId(listWriters);
 
@@ -97,7 +95,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public Writer update(Writer writer) {
-        List<Writer> listWriters = readFrowWritersFile();
+        List<Writer> listWriters = readFromWritersFile();
 
         for (Writer w : listWriters) {
             if (w.getId().equals(writer.getId())) {

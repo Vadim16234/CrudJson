@@ -4,12 +4,17 @@ import model.Label;
 import model.Post;
 import model.Status;
 import repository.PostRepository;
+import repository.gson.GsonPostRepositoryImpl;
 
 import java.util.List;
 
 public class PostController {
 
     public final PostRepository postRepository;
+
+    public PostController() {
+        this.postRepository = new GsonPostRepositoryImpl();
+    }
 
     public PostController(PostRepository postRepository) {
         this.postRepository = postRepository;
@@ -31,7 +36,7 @@ public class PostController {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(context);
-        post.setLables(labels);
+        post.setLabels(labels);
         post.setStatus(status);
 
         return postRepository.add(post);

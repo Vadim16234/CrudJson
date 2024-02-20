@@ -1,10 +1,10 @@
-package repository;
+package repository.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Label;
 import model.Status;
-import model.Writer;
+import repository.LabelRepository;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,9 +15,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class GsonLabelRepositoryImpl implements LabelRepository {
-    private final String FILE_NAME = "labels.json";
+    private final String FILE_NAME = "src/main/resources/labels.json";
 
-    public List<Label> readFromLabelsFile() {
+    private List<Label> readFromLabelsFile() {
         try (FileReader fileReader = new FileReader(FILE_NAME)) {
             Type typeToken = new TypeToken<List<Label>>() {}.getType();
             List<Label> labelList = new Gson().fromJson(fileReader, typeToken);
@@ -33,7 +33,7 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
         }
     }
 
-    public void writeToLabelsFile(List<Label> labelList) {
+    private void writeToLabelsFile(List<Label> labelList) {
         try (FileWriter fileWriter = new FileWriter(FILE_NAME)) {
             String jsonLabels = new Gson().toJson(labelList);
             fileWriter.write(jsonLabels);
@@ -42,7 +42,7 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
         }
     }
 
-    public Long generatedId(List<Label> labelList) {
+    private Long generatedId(List<Label> labelList) {
         Long lablesId = 1L;
 
         if (labelList == null) {

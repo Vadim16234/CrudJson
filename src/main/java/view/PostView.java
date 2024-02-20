@@ -6,13 +6,17 @@ import model.Post;
 import model.Status;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class PostView {
     private final Scanner scanner;
     private final PostController postController;
+
+    public PostView() {
+        this.postController = new PostController();
+        this.scanner = new Scanner(System.in);
+    }
 
     public PostView(PostController postController) {
         this.postController = postController;
